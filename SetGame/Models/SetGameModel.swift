@@ -10,8 +10,8 @@ import SwiftUI
 
 
 struct SetGameModel {
-    private var deck: [Card]
-    var currentCards: [Card]
+    private var deck: Array<Card>
+    var currentCards: Array<Card>
     
     // MARK: - Model initializer
     init() {
@@ -51,8 +51,41 @@ struct SetGameModel {
     
     mutating func chooseCard(card: Card) -> Void {
         if let chosenIndex = currentCards.firstIndex(matching: card) {
-            currentCards[chosenIndex].isSelected = true
+            currentCards[chosenIndex].isSelected.toggle()
+            if indexOfSelectedCards.count == 3 {
+                // 3 cards are a match
+                if isASet(ids: indexOfSelectedCards) {
+                    indexOfSelectedCards.forEach { idx in
+                        currentCards[idx].isMatched = true
+                    }
+                }
+            }
         }
+    }
+    
+    private var indexOfSelectedCards: [Int] {
+        currentCards.indices.filter { currentCards[$0].isSelected }
+    }
+    
+    private func isASet(ids: [Int]) -> Bool {
+        let cards = ids.map { id in currentCards[id] }
+        if !cards.map({ card in card.color }).formedASet {
+            return false
+        }
+        
+        if !cards.map({ card in card.shape }).formedASet {
+            return false
+        }
+        
+        if !cards.map({ card in card.shading }).formedASet {
+            return false
+        }
+        
+        if !cards.map({ card in card.number }).formedASet {
+            return false
+        }
+        
+        return true
     }
     
     // MARK: - Struct Card

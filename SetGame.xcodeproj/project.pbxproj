@@ -22,6 +22,7 @@
 		49FDB26D251127A60050E8C1 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB26C251127A60050E8C1 /* Grid.swift */; };
 		49FDB26F2511286D0050E8C1 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB26E2511286D0050E8C1 /* GridLayout.swift */; };
 		49FDB2712511287E0050E8C1 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB2702511287E0050E8C1 /* Array+Identifiable.swift */; };
+		49FDB273251775550050E8C1 /* Array+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDB272251775550050E8C1 /* Array+Hashable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		49FDB26C251127A60050E8C1 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		49FDB26E2511286D0050E8C1 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		49FDB2702511287E0050E8C1 /* Array+Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		49FDB272251775550050E8C1 /* Array+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Hashable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,8 @@
 		4948057A250F873300F20C20 /* SetGame */ = {
 			isa = PBXGroup;
 			children = (
+				49FDB272251775550050E8C1 /* Array+Hashable.swift */,
+				49FDB2702511287E0050E8C1 /* Array+Identifiable.swift */,
 				498306842510789D004CDB33 /* CustomShapes */,
 				494805B0250F8A8600F20C20 /* SupportingViews */,
 				494805AD250F88F100F20C20 /* Models */,
@@ -122,7 +126,6 @@
 				49480581250F873500F20C20 /* Assets.xcassets */,
 				49480586250F873500F20C20 /* LaunchScreen.storyboard */,
 				49480589250F873500F20C20 /* Info.plist */,
-				49FDB2702511287E0050E8C1 /* Array+Identifiable.swift */,
 				49480583250F873500F20C20 /* Preview Content */,
 			);
 			path = SetGame;
@@ -322,6 +325,7 @@
 				49FDB26F2511286D0050E8C1 /* GridLayout.swift in Sources */,
 				49830680250FDC37004CDB33 /* CardView.swift in Sources */,
 				49FDB26B251125730050E8C1 /* SetGameViewModel.swift in Sources */,
+				49FDB273251775550050E8C1 /* Array+Hashable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

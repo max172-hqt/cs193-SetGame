@@ -28,7 +28,7 @@ struct SetGameView: View {
                 }
                 Spacer()
                 Button("New Game") {
-                    // TODO
+                    self.viewModel.resetGame()
                 }
             }
                 .padding()
