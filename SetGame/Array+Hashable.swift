@@ -10,6 +10,7 @@ import Foundation
 
 extension Array where Element: Hashable {
     var formedASet: Bool {
-        return Array(Set(self)).count == 1 || Array(Set(self)).count == self.count
+        return Array(Set(self)).count == 1 ||
+            Array(Set(self)).count == self.count
     }
 }

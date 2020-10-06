@@ -55,37 +55,28 @@ struct SetGameModel {
             if indexOfSelectedCards.count == 3 {
                 // 3 cards are a match
                 if isASet(ids: indexOfSelectedCards) {
-                    indexOfSelectedCards.forEach { idx in
-                        currentCards[idx].isMatched = true
+                    for index in indexOfSelectedCards {
+                        currentCards[index].isMatched = true
+                    }
+                } else {
+                    for index in indexOfSelectedCards {
+                        currentCards[index].isMatched = false
                     }
                 }
             }
         }
     }
     
-    private var indexOfSelectedCards: [Int] {
+    var indexOfSelectedCards: [Int] {
         currentCards.indices.filter { currentCards[$0].isSelected }
     }
     
     private func isASet(ids: [Int]) -> Bool {
         let cards = ids.map { id in currentCards[id] }
-        if !cards.map({ card in card.color }).formedASet {
-            return false
-        }
-        
-        if !cards.map({ card in card.shape }).formedASet {
-            return false
-        }
-        
-        if !cards.map({ card in card.shading }).formedASet {
-            return false
-        }
-        
-        if !cards.map({ card in card.number }).formedASet {
-            return false
-        }
-        
-        return true
+        return cards.map({ card in card.color }).formedASet &&
+            cards.map({ card in card.shape }).formedASet &&
+            cards.map({ card in card.shading }).formedASet &&
+            cards.map({ card in card.number }).formedASet
     }
     
     // MARK: - Struct Card
@@ -96,7 +87,7 @@ struct SetGameModel {
         var shading: Shading
         var color: ShapeColor
         var isSelected: Bool = false
-        var isMatched: Bool = false
+        var isMatched: Bool?
         
         enum Number: Int, CaseIterable {
             case one = 1, two, three
