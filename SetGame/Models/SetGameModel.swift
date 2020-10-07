@@ -52,23 +52,42 @@ struct SetGameModel {
     mutating func chooseCard(card: Card) -> Void {
         if let chosenIndex = currentCards.firstIndex(matching: card) {
             currentCards[chosenIndex].isSelected.toggle()
-            if indexOfSelectedCards.count == 3 {
-                // 3 cards are a match
-                if isASet(ids: indexOfSelectedCards) {
-                    for index in indexOfSelectedCards {
-                        currentCards[index].isMatched = true
-                    }
-                } else {
-                    for index in indexOfSelectedCards {
-                        currentCards[index].isMatched = false
-                    }
+            let numberOfSelectedCards = indexOfSelectedCards.count
+            
+            if numberOfSelectedCards == 3 {
+                let cardsFormedASet = isASet(ids: indexOfSelectedCards)
+                
+                for index in indexOfSelectedCards {
+                    currentCards[index].isMatched = cardsFormedASet
+                }
+            } else if numberOfSelectedCards == 4 {
+                indexOfSelectedCards = [chosenIndex]
+            } else {
+                for index in currentCards.indices {
+                    currentCards[index].isMatched = nil
                 }
             }
         }
     }
     
     var indexOfSelectedCards: [Int] {
-        currentCards.indices.filter { currentCards[$0].isSelected }
+        get {
+            currentCards.indices.filter { currentCards[$0].isSelected }
+        }
+        set {
+            if newValue.count == 1 {
+                for index in currentCards.indices {
+                    currentCards[index].isSelected = index == newValue.first
+                    if let isMatched = currentCards[index].isMatched {
+                        if isMatched {
+                            currentCards[index] = deck.remove(at: 0)
+                        } else {
+                            currentCards[index].isMatched = nil
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private func isASet(ids: [Int]) -> Bool {

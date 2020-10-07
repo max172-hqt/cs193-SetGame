@@ -35,8 +35,12 @@ struct CardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: self.cornerRadius).fill(Color.white)
             if card.isSelected {
-                if card.isMatched != nil && card.isMatched! {
-                    RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.green, lineWidth: self.edgeLineWidth)
+                if card.isMatched != nil {
+                    if card.isMatched! {
+                        RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.green, lineWidth: self.edgeLineWidth)
+                    } else {
+                        RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.red, lineWidth: self.edgeLineWidth)
+                    }
                 } else {
                     RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.yellow, lineWidth: self.edgeLineWidth)
                 }
