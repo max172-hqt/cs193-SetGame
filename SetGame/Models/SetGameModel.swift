@@ -51,7 +51,9 @@ struct SetGameModel {
     
     mutating func chooseCard(card: Card) -> Void {
         if let chosenIndex = currentCards.firstIndex(matching: card) {
-            currentCards[chosenIndex].isSelected.toggle()
+            if indexOfSelectedCards.count != 3 || !currentCards[chosenIndex].isSelected {
+                currentCards[chosenIndex].isSelected.toggle()
+            }
             let numberOfSelectedCards = indexOfSelectedCards.count
             
             if numberOfSelectedCards == 3 {
@@ -75,6 +77,8 @@ struct SetGameModel {
             currentCards.indices.filter { currentCards[$0].isSelected }
         }
         set {
+            // If 3 cards are already selected, select another one
+            // will deselect / remove the 3 cards if mismatched / matched
             if newValue.count == 1 {
                 for index in currentCards.indices {
                     currentCards[index].isSelected = index == newValue.first
