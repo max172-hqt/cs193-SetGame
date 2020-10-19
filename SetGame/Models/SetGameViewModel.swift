@@ -11,13 +11,13 @@ import SwiftUI
 class SetGameViewModel: ObservableObject {
     @Published private var model: SetGameModel = SetGameModel()
     
-//    var numberOfSelectedCards: Int {
-//        model.indexOfSelectedCards.count
-//    }
-    
     // MARK: - Intents
     var currentCards: Array<SetGameModel.Card> {
         return model.currentCards
+    }
+    
+    var numberOfRemainingCards: Int {
+        return model.deck.count
     }
     
     func addThreeCards() -> Void {

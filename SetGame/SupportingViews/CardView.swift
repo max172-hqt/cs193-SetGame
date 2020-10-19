@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CardView: View {
     var card: SetGameModel.Card
+    @State private var offset = CGSize(width: -200, height: -200)
     
     var cardColor: Color {
         switch card.color {
@@ -47,10 +48,17 @@ struct CardView: View {
             } else {
                 RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.black, lineWidth: self.edgeLineWidth)
             }
-            
+
             self.cardContent(size: size)
-            
         }
+        .offset(card.inGame ? self.offset : CGSize(width: 0, height: 0))
+        .animation(.easeInOut(duration: 0.5))
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                self.offset = CGSize(width: 0, height: 0)
+            }
+        }
+
     }
     
     // MARK: - Helpers: Drawing card content shape

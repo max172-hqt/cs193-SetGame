@@ -10,8 +10,11 @@ import SwiftUI
 
 
 struct SetGameModel {
-    private var deck: Array<Card>
+    var deck: Array<Card>
     var currentCards: Array<Card>
+//    var currentCards: Array<Card> {
+//        return deck.filter { card in card.inGame }
+//    }
     
     // MARK: - Model initializer
     init() {
@@ -37,15 +40,22 @@ struct SetGameModel {
         
         // Deal cards. TODO: separate into deal method
         for _ in 0..<12 {
-            currentCards.append(deck.remove(at: 0))
+            var card = deck.remove(at: 0)
+            card.inGame = true
+            currentCards.append(card)
         }
     }
     
     // MARK: - Game Design
     mutating func addThreeCards() -> Void {
-        // TODO: Check if deck has remaining cards
-        for _ in 0..<3 {
-            currentCards.append(deck.remove(at: 0))
+        if indexOfSelectedCards.count == 3 && isASet(ids: indexOfSelectedCards) {
+            indexOfSelectedCards = []
+        } else if deck.count > 0 {
+            for _ in 0..<3 {
+                var card = deck.remove(at: 0)
+                card.inGame = true
+                currentCards.append(card)
+            }
         }
     }
     
@@ -79,15 +89,15 @@ struct SetGameModel {
         set {
             // If 3 cards are already selected, select another one
             // will deselect / remove the 3 cards if mismatched / matched
-            if newValue.count == 1 {
-                for index in currentCards.indices {
-                    currentCards[index].isSelected = index == newValue.first
-                    if let isMatched = currentCards[index].isMatched {
-                        if isMatched {
-                            currentCards[index] = deck.remove(at: 0)
-                        } else {
-                            currentCards[index].isMatched = nil
-                        }
+            for index in currentCards.indices {
+                currentCards[index].isSelected = index == newValue.first
+                if let isMatched = currentCards[index].isMatched {
+                    if isMatched {
+                        currentCards[index].inGame = false
+                        currentCards[index] = deck.remove(at: 0)
+                        currentCards[index].inGame = true
+                    } else {
+                        currentCards[index].isMatched = nil
                     }
                 }
             }
@@ -111,6 +121,7 @@ struct SetGameModel {
         var color: ShapeColor
         var isSelected: Bool = false
         var isMatched: Bool?
+        var inGame: Bool = false
         
         enum Number: Int, CaseIterable {
             case one = 1, two, three

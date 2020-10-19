@@ -19,13 +19,14 @@ struct SetGameView: View {
                     .aspectRatio(0.75, contentMode: .fit)
                     .onTapGesture {
                         self.viewModel.chooseCard(card: card)
-                }
+                    }
             }
             
             HStack {
                 Button("+3") {
                     self.viewModel.addThreeCards()
                 }
+                    .disabled(viewModel.numberOfRemainingCards == 0)
                 Spacer()
                 Button("New Game") {
                     self.viewModel.resetGame()
