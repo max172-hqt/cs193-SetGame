@@ -12,9 +12,6 @@ import SwiftUI
 struct SetGameModel {
     var deck: Array<Card>
     var currentCards: Array<Card>
-//    var currentCards: Array<Card> {
-//        return deck.filter { card in card.inGame }
-//    }
     
     // MARK: - Model initializer
     init() {
@@ -37,21 +34,14 @@ struct SetGameModel {
         }
         
         deck.shuffle()
-        
-        // Deal cards. TODO: separate into deal method
-        for _ in 0..<12 {
-            var card = deck.remove(at: 0)
-            card.inGame = true
-            currentCards.append(card)
-        }
     }
     
     // MARK: - Game Design
-    mutating func addThreeCards() -> Void {
+    mutating func deal(numberOfCards: Int) -> Void {
         if indexOfSelectedCards.count == 3 && isASet(ids: indexOfSelectedCards) {
             indexOfSelectedCards = []
-        } else if deck.count > 0 {
-            for _ in 0..<3 {
+        } else if deck.count >= numberOfCards {
+            for _ in 0..<numberOfCards {
                 var card = deck.remove(at: 0)
                 card.inGame = true
                 currentCards.append(card)
@@ -94,8 +84,10 @@ struct SetGameModel {
                 if let isMatched = currentCards[index].isMatched {
                     if isMatched {
                         currentCards[index].inGame = false
-                        currentCards[index] = deck.remove(at: 0)
-                        currentCards[index].inGame = true
+                        if deck.count > 0 {
+                            currentCards[index] = deck.remove(at: 0)
+                            currentCards[index].inGame = true
+                        }
                     } else {
                         currentCards[index].isMatched = nil
                     }

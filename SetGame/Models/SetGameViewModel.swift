@@ -20,8 +20,12 @@ class SetGameViewModel: ObservableObject {
         return model.deck.count
     }
     
+    func initCards() -> Void {
+        model.deal(numberOfCards: 12)
+    }
+    
     func addThreeCards() -> Void {
-        model.addThreeCards()
+        model.deal(numberOfCards: 3)
     }
     
     func chooseCard(card: SetGameModel.Card) -> Void {
@@ -30,5 +34,6 @@ class SetGameViewModel: ObservableObject {
     
     func resetGame() -> Void {
         model = SetGameModel()
+        self.initCards()
     }
 }

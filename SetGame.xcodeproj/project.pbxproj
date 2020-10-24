@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		492FD66F253E022F00CFA373 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492FD66E253E022F00CFA373 /* Cardify.swift */; };
 		4948057C250F873300F20C20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4948057B250F873300F20C20 /* AppDelegate.swift */; };
 		4948057E250F873300F20C20 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4948057D250F873300F20C20 /* SceneDelegate.swift */; };
 		49480580250F873300F20C20 /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4948057F250F873300F20C20 /* SetGameView.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		492FD66E253E022F00CFA373 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		49480578250F873300F20C20 /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4948057B250F873300F20C20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4948057D250F873300F20C20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				49FDB26E2511286D0050E8C1 /* GridLayout.swift */,
 				49FDB26C251127A60050E8C1 /* Grid.swift */,
 				4983067F250FDC37004CDB33 /* CardView.swift */,
+				492FD66E253E022F00CFA373 /* Cardify.swift */,
 			);
 			path = SupportingViews;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				49FDB26D251127A60050E8C1 /* Grid.swift in Sources */,
 				494805AC250F889400F20C20 /* SetGameModel.swift in Sources */,
 				49FDB2712511287E0050E8C1 /* Array+Identifiable.swift in Sources */,
+				492FD66F253E022F00CFA373 /* Cardify.swift in Sources */,
 				49480580250F873300F20C20 /* SetGameView.swift in Sources */,
 				49FDB26F2511286D0050E8C1 /* GridLayout.swift in Sources */,
 				49830680250FDC37004CDB33 /* CardView.swift in Sources */,

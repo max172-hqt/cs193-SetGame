@@ -10,7 +10,27 @@ import SwiftUI
 
 struct CardView: View {
     var card: SetGameModel.Card
-    @State private var offset = CGSize(width: -200, height: -200)
+    var body: some View {
+        GeometryReader { geometry in
+            self.body(for: geometry.size)
+        }
+    }
+    
+    // MARK: - Drawing main card content
+
+    @ViewBuilder
+    private func body(for size: CGSize) -> some View {
+        if card.inGame {
+            ZStack {
+                self.cardContent(size: size)
+                    .rotationEffect(Angle.degrees(card.isMatched != nil ? 360 : 0))
+                    .animation(card.isMatched != nil ? Animation.linear(duration: 2).repeatForever(autoreverses: false) : .linear(duration: 0.75))
+                    .cardify(isSelected: card.isSelected, isMatched: card.isMatched, inGame: card.inGame)
+            }
+        }
+    }
+    
+    // MARK: - Helpers: Drawing card content shape
     
     var cardColor: Color {
         switch card.color {
@@ -22,46 +42,6 @@ struct CardView: View {
             return Color.purple
         }
     }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            self.body(for: geometry.size)
-        }
-    }
-    
-    // MARK: - Drawing main card content
-
-    @ViewBuilder
-    private func body(for size: CGSize) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: self.cornerRadius).fill(Color.white)
-            if card.isSelected {
-                if card.isMatched != nil {
-                    if card.isMatched! {
-                        RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.green, lineWidth: self.edgeLineWidth)
-                    } else {
-                        RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.red, lineWidth: self.edgeLineWidth)
-                    }
-                } else {
-                    RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.yellow, lineWidth: self.edgeLineWidth)
-                }
-            } else {
-                RoundedRectangle(cornerRadius: self.cornerRadius).stroke(Color.black, lineWidth: self.edgeLineWidth)
-            }
-
-            self.cardContent(size: size)
-        }
-        .offset(card.inGame ? self.offset : CGSize(width: 0, height: 0))
-        .animation(.easeInOut(duration: 0.5))
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.5)) {
-                self.offset = CGSize(width: 0, height: 0)
-            }
-        }
-
-    }
-    
-    // MARK: - Helpers: Drawing card content shape
     
     @ViewBuilder
     private func cardContent(size: CGSize) -> some View {

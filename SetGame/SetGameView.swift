@@ -18,18 +18,31 @@ struct SetGameView: View {
                     .padding()
                     .aspectRatio(0.75, contentMode: .fit)
                     .onTapGesture {
-                        self.viewModel.chooseCard(card: card)
-                    }
+                        withAnimation(.linear(duration: 0.75)) {
+                            self.viewModel.chooseCard(card: card)
+                        }
+                }
+                .transition(.scale)
             }
+            .onAppear {
+                withAnimation(.linear(duration: 1)) {
+                    self.viewModel.initCards()
+                }
+            }
+            
             
             HStack {
                 Button("+3") {
-                    self.viewModel.addThreeCards()
+                    withAnimation(.easeInOut(duration: 0.75)) {
+                        self.viewModel.addThreeCards()
+                    }
                 }
                     .disabled(viewModel.numberOfRemainingCards == 0)
                 Spacer()
                 Button("New Game") {
-                    self.viewModel.resetGame()
+                    withAnimation(.easeInOut(duration: 0.75)) {
+                        self.viewModel.resetGame()
+                    }
                 }
             }
                 .padding()
