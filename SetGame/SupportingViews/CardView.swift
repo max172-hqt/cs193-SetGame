@@ -32,50 +32,18 @@ struct CardView: View {
     }
     
     // MARK: - Helpers: Drawing card content shape
-    
-    var cardColor: Color {
-        switch card.color {
-        case .red:
-            return Color.red
-        case .green:
-            return Color.green
-        case .purple:
-            return Color.purple
-        }
-    }
-    
     @ViewBuilder
     private func cardContent(size: CGSize) -> some View {
         VStack {
             ForEach(1...self.card.number.rawValue, id: \.self) { num in
                 Group {
-                    if self.card.shape == .diamond {
-                        if self.card.shading == .open {
-                            Diamond()
-                                .stroke(self.cardColor, lineWidth: self.edgeLineWidth)
-                        } else {
-                            Diamond()
-                                .fill(self.cardColor)
-                                .opacity(self.card.shading == .solid ? 1 : self.stripedOpacity)
-                        }
-                    } else if self.card.shape == .oval {
-                        if self.card.shading == .open {
-                            Capsule()
-                                .stroke(self.cardColor, lineWidth: self.edgeLineWidth)
-                        } else {
-                            Capsule()
-                                .fill(self.cardColor)
-                                .opacity(self.card.shading == .solid ? 1 : self.stripedOpacity)
-                        }
+                    if self.card.shading == .open {
+                        self.card.cardShape
+                            .stroke(self.card.cardColor, lineWidth: self.edgeLineWidth)
                     } else {
-                        if self.card.shading == .open {
-                            Rectangle()
-                                .stroke(self.cardColor, lineWidth: self.edgeLineWidth)
-                        } else {
-                            Rectangle()
-                                .fill(self.cardColor)
-                                .opacity(self.card.shading == .solid ? 1 : self.stripedOpacity)
-                        }
+                        self.card.cardShape
+                            .fill(self.card.cardColor)
+                            .opacity(self.card.shading == .solid ? 1 : self.stripedOpacity)
                     }
                 }
                 .frame(

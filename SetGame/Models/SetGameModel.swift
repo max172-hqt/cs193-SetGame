@@ -22,8 +22,8 @@ struct SetGameModel {
         
         // initilize cards
         for number in Card.Number.allCases {
-            for shape in Card.Shape.allCases {
-                for shading in Card.Shading.allCases {
+            for shape in Card.CardShape.allCases {
+                for shading in Card.CardShading.allCases {
                     for color in Card.ShapeColor.allCases {
                         let card = Card(id: index, number: number, shape: shape, shading: shading, color: color)
                         deck.append(card)
@@ -114,8 +114,8 @@ struct SetGameModel {
     struct Card: Identifiable {
         var id: Int
         var number: Number
-        var shape: Shape
-        var shading: Shading
+        var shape: CardShape
+        var shading: CardShading
         var color: ShapeColor
         var isSelected: Bool = false
         var isMatched: Bool?
@@ -125,11 +125,11 @@ struct SetGameModel {
             case one = 1, two, three
         }
         
-        enum Shape: String, CaseIterable {
+        enum CardShape: String, CaseIterable {
             case diamond, squiggle, oval
         }
         
-        enum Shading: String, CaseIterable {
+        enum CardShading: String, CaseIterable {
             case solid, striped, open
         }
         

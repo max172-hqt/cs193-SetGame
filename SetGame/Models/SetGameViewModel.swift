@@ -37,3 +37,43 @@ class SetGameViewModel: ObservableObject {
         self.initCards()
     }
 }
+
+// MARK: - Display oriented extensions for Set Game View
+extension SetGameModel.Card {
+    var cardColor: Color {
+        switch self.color {
+        case .red:
+            return Color.red
+        case .green:
+            return Color.green
+        case .purple:
+            return Color.purple
+        }
+    }
+    
+    var cardShape: some Shape {
+        switch self.shape {
+        case .diamond:
+            return AnyShape(Diamond())
+        case .oval:
+            return AnyShape(Capsule())
+        case .squiggle:
+            return AnyShape(Rectangle())
+        }
+    }
+}
+
+struct AnyShape: Shape {
+    init<S: Shape>(_ wrapped: S) {
+        _path = { rect in
+            let path = wrapped.path(in: rect)
+            return path
+        }
+    }
+
+    func path(in rect: CGRect) -> Path {
+        return _path(rect)
+    }
+
+    private let _path: (CGRect) -> Path
+}
