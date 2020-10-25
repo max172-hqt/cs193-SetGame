@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CardView: View {
     var card: SetGameModel.Card
+    
     var body: some View {
         GeometryReader { geometry in
             self.body(for: geometry.size)
@@ -17,7 +18,6 @@ struct CardView: View {
     }
     
     // MARK: - Drawing main card content
-    
     @ViewBuilder
     private func body(for size: CGSize) -> some View {
         if card.inGame {
@@ -35,15 +35,15 @@ struct CardView: View {
     @ViewBuilder
     private func cardContent(size: CGSize) -> some View {
         VStack {
-            ForEach(1...self.card.number.rawValue, id: \.self) { num in
+            ForEach(1...self.card.number.rawValue, id: \.self) { _ in
                 Group {
-                    if self.card.shading == .open {
+                    if self.card.shading == .one {
                         self.card.cardShape
                             .stroke(self.card.cardColor, lineWidth: self.edgeLineWidth)
                     } else {
                         self.card.cardShape
                             .fill(self.card.cardColor)
-                            .opacity(self.card.shading == .solid ? 1 : self.stripedOpacity)
+                            .opacity(self.card.shading == .two ? 1 : self.stripedOpacity)
                     }
                 }
                 .frame(
@@ -55,7 +55,6 @@ struct CardView: View {
     }
     
     // MARK: - Drawing constants
-    
     private let cornerRadius: CGFloat = 10.0
     private let edgeLineWidth: CGFloat = 3
     private let stripedOpacity = 0.4
@@ -65,10 +64,9 @@ struct CardView: View {
 }
 
 // MARK: - Previews
-
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        let card = SetGameModel.Card(id: 1, number: .three, shape: .oval, shading: .open, color: .red)
+        let card = SetGameModel.Card(id: 1, number: .three, shape: .one, shading: .two, color: .three)
         return CardView(card: card)
     }
 }

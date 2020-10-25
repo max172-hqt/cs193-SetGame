@@ -21,10 +21,10 @@ struct SetGameModel {
         var index = 0
         
         // initilize cards
-        for number in Card.Number.allCases {
-            for shape in Card.CardShape.allCases {
-                for shading in Card.CardShading.allCases {
-                    for color in Card.ShapeColor.allCases {
+        for number in Card.Feature.allCases {
+            for shape in Card.Feature.allCases {
+                for shading in Card.Feature.allCases {
+                    for color in Card.Feature.allCases {
                         let card = Card(id: index, number: number, shape: shape, shading: shading, color: color)
                         deck.append(card)
                         index += 1
@@ -113,28 +113,16 @@ struct SetGameModel {
     // MARK: - Struct Card
     struct Card: Identifiable {
         var id: Int
-        var number: Number
-        var shape: CardShape
-        var shading: CardShading
-        var color: ShapeColor
+        var number: Feature
+        var shape: Feature
+        var shading: Feature
+        var color: Feature
         var isSelected: Bool = false
         var isMatched: Bool?
         var inGame: Bool = false
         
-        enum Number: Int, CaseIterable {
+        enum Feature: Int, CaseIterable {
             case one = 1, two, three
-        }
-        
-        enum CardShape: String, CaseIterable {
-            case diamond, squiggle, oval
-        }
-        
-        enum CardShading: String, CaseIterable {
-            case solid, striped, open
-        }
-        
-        enum ShapeColor: String, CaseIterable {
-            case red, green, purple
         }
     }
 }

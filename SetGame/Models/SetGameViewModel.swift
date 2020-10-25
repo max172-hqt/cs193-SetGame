@@ -34,7 +34,7 @@ class SetGameViewModel: ObservableObject {
     
     func resetGame() -> Void {
         model = SetGameModel()
-        self.initCards()
+        initCards()
     }
 }
 
@@ -42,22 +42,22 @@ class SetGameViewModel: ObservableObject {
 extension SetGameModel.Card {
     var cardColor: Color {
         switch self.color {
-        case .red:
+        case .one:
             return Color.red
-        case .green:
+        case .two:
             return Color.green
-        case .purple:
+        case .three:
             return Color.purple
         }
     }
     
     var cardShape: some Shape {
         switch self.shape {
-        case .diamond:
+        case .one:
             return AnyShape(Diamond())
-        case .oval:
+        case .two:
             return AnyShape(Capsule())
-        case .squiggle:
+        case .three:
             return AnyShape(Rectangle())
         }
     }
@@ -70,10 +70,10 @@ struct AnyShape: Shape {
             return path
         }
     }
-
+    
     func path(in rect: CGRect) -> Path {
         return _path(rect)
     }
-
+    
     private let _path: (CGRect) -> Path
 }
