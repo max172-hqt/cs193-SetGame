@@ -12,17 +12,29 @@ struct SetGameView: View {
     @ObservedObject var viewModel: SetGameViewModel
     
     var body: some View {
+        GeometryReader { geometry in
+            self.body(for: geometry.size)
+        }
+    }
+    
+    @ViewBuilder
+    private func body(for size: CGSize) -> some View {
         VStack {
+            
+            Text("Deck: \(self.viewModel.numberOfRemainingCards) cards")
+                .frame(maxWidth: .infinity)
+                .padding()
+            
             Grid(self.viewModel.currentCards) { card in
                 CardView(card: card)
                     .padding()
                     .aspectRatio(0.75, contentMode: .fit)
                     .onTapGesture {
-                        withAnimation(.linear(duration: 0.75)) {
+                        withAnimation(.easeInOut(duration: self.animationDuration)) {
                             self.viewModel.chooseCard(card: card)
                         }
                 }
-                .transition(.scale)
+                .transition(.offset(size))
             }
             .onAppear {
                 withAnimation(.linear(duration: 1)) {
@@ -33,22 +45,27 @@ struct SetGameView: View {
             
             HStack {
                 Button("+3") {
-                    withAnimation(.easeInOut(duration: 0.75)) {
+                    withAnimation(.easeInOut(duration: self.animationDuration)) {
                         self.viewModel.addThreeCards()
                     }
                 }
-                    .disabled(viewModel.numberOfRemainingCards == 0)
-                Spacer()
+                .disabled(self.viewModel.numberOfRemainingCards == 0)
+                .frame(maxWidth: .infinity)
+                
                 Button("New Game") {
-                    withAnimation(.easeInOut(duration: 0.75)) {
+                    withAnimation(.easeInOut(duration: self.animationDuration)) {
                         self.viewModel.resetGame()
                     }
                 }
+                .frame(maxWidth: .infinity)
+                
             }
-                .padding()
-                .font(.title)
+            .padding()
+            .font(.body)
         }
     }
+    
+    private let animationDuration = 0.75
 }
 
 struct SetGameView_Previews: PreviewProvider {

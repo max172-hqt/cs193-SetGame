@@ -17,15 +17,16 @@ struct CardView: View {
     }
     
     // MARK: - Drawing main card content
-
+    
     @ViewBuilder
     private func body(for size: CGSize) -> some View {
         if card.inGame {
             ZStack {
                 self.cardContent(size: size)
-                    .rotationEffect(Angle.degrees(card.isMatched != nil ? 360 : 0))
-                    .animation(card.isMatched != nil ? Animation.linear(duration: 2).repeatForever(autoreverses: false) : .linear(duration: 0.75))
-                    .cardify(isSelected: card.isSelected, isMatched: card.isMatched, inGame: card.inGame)
+                    .rotationEffect(Angle.degrees(card.isMatched != nil && card.isMatched! ? 360 : 0))
+                    .animation(card.isMatched != nil && card.isMatched! ? Animation.linear(duration: 2)
+                        .repeatForever(autoreverses: false) : .linear(duration: self.animationDuration))
+                    .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
             }
         }
     }
@@ -52,7 +53,6 @@ struct CardView: View {
                         if self.card.shading == .open {
                             Diamond()
                                 .stroke(self.cardColor, lineWidth: self.edgeLineWidth)
-
                         } else {
                             Diamond()
                                 .fill(self.cardColor)
@@ -62,7 +62,6 @@ struct CardView: View {
                         if self.card.shading == .open {
                             Capsule()
                                 .stroke(self.cardColor, lineWidth: self.edgeLineWidth)
-
                         } else {
                             Capsule()
                                 .fill(self.cardColor)
@@ -72,7 +71,6 @@ struct CardView: View {
                         if self.card.shading == .open {
                             Rectangle()
                                 .stroke(self.cardColor, lineWidth: self.edgeLineWidth)
-
                         } else {
                             Rectangle()
                                 .fill(self.cardColor)
@@ -94,6 +92,8 @@ struct CardView: View {
     private let edgeLineWidth: CGFloat = 3
     private let stripedOpacity = 0.4
     private let cardToCardContentRatio: CGFloat = 5
+    private let animationDuration = 0.75
+
 }
 
 // MARK: - Previews

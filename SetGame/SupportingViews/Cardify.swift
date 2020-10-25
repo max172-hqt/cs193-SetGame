@@ -11,12 +11,10 @@ import SwiftUI
 struct Cardify: AnimatableModifier {
     var isSelected: Bool
     var isMatched: Bool?
-    var inGame: Bool
     
-    init(isSelected: Bool, isMatched: Bool?, inGame: Bool) {
+    init(isSelected: Bool, isMatched: Bool?) {
         self.isSelected = isSelected
         self.isMatched = isMatched
-        self.inGame = inGame
     }
     
     func body(content: Content) -> some View {
@@ -41,7 +39,7 @@ struct Cardify: AnimatableModifier {
                     RoundedRectangle(cornerRadius: cornerRadius).stroke(Color.black, lineWidth: edgeLineWidth)
                 }
             }
-        }.opacity(inGame ? 1 : 0)
+        }
     }
     
     
@@ -51,8 +49,8 @@ struct Cardify: AnimatableModifier {
 
 
 extension View {
-    func cardify(isSelected: Bool, isMatched: Bool?, inGame: Bool) -> some View {
-        self.modifier(Cardify(isSelected: isSelected, isMatched: isMatched, inGame: inGame))
+    func cardify(isSelected: Bool, isMatched: Bool?) -> some View {
+        self.modifier(Cardify(isSelected: isSelected, isMatched: isMatched))
     }
 }
 

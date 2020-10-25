@@ -93,6 +93,12 @@ struct SetGameModel {
                     }
                 }
             }
+            
+            // End game
+            // When deck is empty, vacated slots (cards with !inGame are not removed)
+            // should be made available for remaining cards
+            // -> remove cards with !inGame
+            currentCards.removeAll { !$0.inGame }
         }
     }
     
