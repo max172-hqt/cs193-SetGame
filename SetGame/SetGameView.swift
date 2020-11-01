@@ -37,7 +37,7 @@ struct SetGameView: View {
                 .transition(.offset(size))
             }
             .onAppear {
-                withAnimation(.linear(duration: 1)) {
+                withAnimation(.easeInOut(duration: animationDuration)) {
                     self.viewModel.initCards()
                 }
             }
@@ -65,7 +65,7 @@ struct SetGameView: View {
         }
     }
     
-    private let animationDuration = 0.75
+    private let animationDuration: Double = 2.00
 }
 
 struct SetGameView_Previews: PreviewProvider {

@@ -24,10 +24,11 @@ struct CardView: View {
             ZStack {
                 self.cardContent(size: size)
                     .rotationEffect(Angle.degrees(card.isMatched != nil && card.isMatched! ? 360 : 0))
-                    .animation(card.isMatched != nil && card.isMatched! ? Animation.linear(duration: 2)
-                        .repeatForever(autoreverses: false) : .linear(duration: self.animationDuration))
-                    .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
+                    .animation(card.isMatched != nil && card.isMatched! ? Animation.linear(duration: 2).repeatForever(autoreverses: false)
+                        : Animation.easeInOut(duration: self.animationDuration))
             }
+            .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
+            .transition(.scale)
         }
     }
     

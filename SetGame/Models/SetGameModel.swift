@@ -33,6 +33,7 @@ struct SetGameModel {
             }
         }
         
+//        deck = Array(deck[0...deck.index(0, offsetBy: 11)])
         deck.shuffle()
     }
     
@@ -84,7 +85,10 @@ struct SetGameModel {
                 if let isMatched = currentCards[index].isMatched {
                     if isMatched {
                         currentCards[index].inGame = false
+                        
+
                         if deck.count > 0 {
+                            
                             currentCards[index] = deck.remove(at: 0)
                             currentCards[index].inGame = true
                         }
@@ -99,6 +103,8 @@ struct SetGameModel {
             // should be made available for remaining cards
             // -> remove cards with !inGame
             currentCards.removeAll { !$0.inGame }
+            print(currentCards)
+            print(currentCards.filter {$0.isMatched != nil&&$0.isMatched!})
         }
     }
     
@@ -108,6 +114,7 @@ struct SetGameModel {
             cards.map({ card in card.shape }).formedASet &&
             cards.map({ card in card.shading }).formedASet &&
             cards.map({ card in card.number }).formedASet
+//        return true
     }
     
     // MARK: - Struct Card
